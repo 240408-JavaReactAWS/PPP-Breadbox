@@ -23,6 +23,14 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Item> items;
 
+    public int getId() {
+        return this.id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     //No-args constructor for Jackston databind
     public User(){ }
 
@@ -90,5 +98,13 @@ public class User {
         this.isAdmin = isAdmin;
     }
     private String token = null;
+
+    public List<Item> getItems() {
+        return this.items;
+    }
+
+    public void setItems(List<Item> items) {
+        this.items = items;
+    }
 
 }

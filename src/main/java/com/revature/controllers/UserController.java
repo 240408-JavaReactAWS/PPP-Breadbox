@@ -3,19 +3,8 @@ package com.revature.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.revature.exceptions.InvalidAuthenticationException;
-import com.revature.exceptions.InvalidRegistrationException;
-import com.revature.exceptions.UserAlreadyExistsException;
-import com.revature.exceptions.UserNotFoundException;
+import org.springframework.web.bind.annotation.*;
+import com.revature.exceptions.*;
 import com.revature.models.User;
 import com.revature.services.UserService;
 

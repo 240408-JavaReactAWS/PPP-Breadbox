@@ -1,7 +1,6 @@
 package com.revature.DAOs;
 
 import com.revature.models.Item;
-import com.revature.models.User;
 
 import java.util.List;
 import java.util.Optional;
