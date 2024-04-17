@@ -3,6 +3,8 @@ package com.revature.models;
 import jakarta.persistence.*;
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "items")
 @Component
@@ -14,7 +16,10 @@ public class Item {
     private String name;
     private boolean biggerThanBreadBox;
 
-    private int userId;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "fk_user_Id")
+    @JsonIgnore
+    private User user;
 
 
     //No-args constructor needed for Jackson databind
@@ -22,11 +27,11 @@ public class Item {
     }
 
     //All-args constructor
-    public Item(int itemId, String name, boolean biggerThanBreadBox, int userId) {
+    public Item(int itemId, String name, boolean biggerThanBreadBox, User user) {
         this.itemId = itemId;
         this.name = name;
         this.biggerThanBreadBox = biggerThanBreadBox;
-        this.userId = userId;
+        this.user = user;
     }
 
     public int getItemId() {
@@ -53,12 +58,12 @@ public class Item {
         this.name = name;
     }
 
-    public int getUserId() {
-        return this.userId;
+    public User getUser() {
+        return this.user;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public boolean getBiggerThanBreadBox() {
@@ -67,10 +72,12 @@ public class Item {
     
     @Override
     public String toString() {
-        return "Item{" +
-                "itemId=" + itemId +
-                ", name='" + name + '\'' +
-                ", biggerThanBreadBox=" + biggerThanBreadBox +
-                '}';
+        return "{" +
+            " itemId='" + getItemId() + "'" +
+            ", name='" + getName() + "'" +
+            ", biggerThanBreadBox='" + isBiggerThanBreadBox() + "'" +
+            "}";
     }
+    
+    
 }

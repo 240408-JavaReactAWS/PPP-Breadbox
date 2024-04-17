@@ -6,6 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -14,17 +15,20 @@ import jakarta.persistence.Table;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int userId;
+
+    private int id;
     private String username;
     private String password;
     private boolean isAdmin = false;
+    @OneToMany(mappedBy = "user")
+    private List<Item> items;
 
     //No-args constructor for Jackston databind
     public User(){ }
 
     public User(int id, String username, String password)
     {
-        this.userId = id;
+        this.id = id;
         this.username = username;
         this.password = password;
     }
@@ -43,11 +47,11 @@ public class User {
     }
 
     public int getUserId() {
-        return this.userId;
+        return this.id;
     }
 
     public void setUserId(int userId) {
-        this.userId = userId;
+        this.id = userId;
     }
 
     public String getUsername() {

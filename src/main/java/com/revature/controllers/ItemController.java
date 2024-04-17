@@ -3,12 +3,11 @@
 package com.revature.controllers;
 
 import com.revature.exceptions.InvalidAuthenticationException;
-import com.revature.exceptions.InvalidRegistrationException;
 import com.revature.exceptions.ItemNotFoundException;
+import com.revature.exceptions.ItemUserMismatchException;
 import com.revature.services.ItemService;
 import com.revature.services.UserService;
 import com.revature.models.Item;
-import com.revature.models.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,7 +31,7 @@ public class ItemController {
     @PostMapping()
     public ResponseEntity<Item> addItemHandler(@RequestBody Item item, @RequestParam String token)
     {
-        return ResponseEntity.ok(itemService.addItem(item, token));
+        return new ResponseEntity<Item>(itemService.addItem(item, token), HttpStatus.CREATED);
     }
 
     @GetMapping()
@@ -72,6 +71,12 @@ public class ItemController {
     @ExceptionHandler(InvalidAuthenticationException.class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public @ResponseBody String handleInvalidUser(InvalidAuthenticationException e)
+    {
+        return e.getMessage();
+    }
+    @ExceptionHandler(ItemUserMismatchException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public @ResponseBody String handleUserAlreadyExists(ItemUserMismatchException e)
     {
         return e.getMessage();
     }
